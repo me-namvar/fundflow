@@ -26,9 +26,10 @@ import { EChartWrapper } from '../charts/EChartWrapper';
 interface AnalyticsLabProps {
   data: MacroDataPoint[];
   isDarkMode: boolean;
+  onNavigateToTab?: (tab: 'dashboard' | 'charts' | 'table' | 'analytics' | 'sources') => void;
 }
 
-export const AnalyticsLab: React.FC<AnalyticsLabProps> = ({ data, isDarkMode }) => {
+export const AnalyticsLab: React.FC<AnalyticsLabProps> = ({ data, isDarkMode, onNavigateToTab }) => {
   const [activeSubTab, setActiveSubTab] = useState<'rebase' | 'returns' | 'correlation' | 'providers'>('rebase');
 
   // Indicators available in active dataset
@@ -430,7 +431,7 @@ export const AnalyticsLab: React.FC<AnalyticsLabProps> = ({ data, isDarkMode }) 
                     </div>
                   </div>
 
-                  <div className="pt-2">
+                  <div className="pt-2 flex flex-wrap items-center justify-between gap-2">
                     <a
                       href={provider.docsUrl}
                       target="_blank"
@@ -439,6 +440,16 @@ export const AnalyticsLab: React.FC<AnalyticsLabProps> = ({ data, isDarkMode }) 
                     >
                       Developer Documentation <ExternalLink size={12} />
                     </a>
+
+                    {provider.id === 'world_bank' && onNavigateToTab && (
+                      <button
+                        onClick={() => onNavigateToTab('sources')}
+                        className="px-2.5 py-1 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs shadow-sm transition flex items-center gap-1"
+                      >
+                        <span>Query World Bank API</span>
+                        <ArrowRight size={12} />
+                      </button>
+                    )}
                   </div>
                 </div>
               ))}

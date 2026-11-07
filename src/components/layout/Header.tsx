@@ -11,13 +11,14 @@ import {
   RotateCcw,
   Clock,
   Layers,
-  LineChart
+  LineChart,
+  Globe
 } from 'lucide-react';
 import { StorageInfo } from '../../services/storage';
 
 interface HeaderProps {
-  activeTab: 'dashboard' | 'charts' | 'table' | 'analytics';
-  onTabChange: (tab: 'dashboard' | 'charts' | 'table' | 'analytics') => void;
+  activeTab: 'dashboard' | 'charts' | 'table' | 'analytics' | 'sources';
+  onTabChange: (tab: 'dashboard' | 'charts' | 'table' | 'analytics' | 'sources') => void;
   isDarkMode: boolean;
   onToggleTheme: () => void;
   storageInfo: StorageInfo;
@@ -123,6 +124,18 @@ export const Header: React.FC<HeaderProps> = ({
           >
             <Layers size={13} />
             <span>Analytics Lab</span>
+          </button>
+
+          <button
+            onClick={() => onTabChange('sources')}
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg font-medium transition ${
+              activeTab === 'sources'
+                ? 'bg-blue-600 text-white shadow-sm font-semibold'
+                : 'text-slate-400 hover:text-white'
+            }`}
+          >
+            <Globe size={13} />
+            <span>Economic Data Sources</span>
           </button>
         </nav>
 

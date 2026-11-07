@@ -22,6 +22,7 @@ import { DashboardOverview } from './components/dashboard/DashboardOverview';
 import { ChartStudio } from './components/charts/ChartStudio';
 import { EditableSpreadsheet } from './components/data-management/EditableSpreadsheet';
 import { AnalyticsLab } from './components/analytics/AnalyticsLab';
+import { EconomicDataSources } from './components/sources/EconomicDataSources';
 import { CSVImportModal } from './components/modals/CSVImportModal';
 import { StorageInfoModal } from './components/modals/StorageInfoModal';
 
@@ -32,7 +33,7 @@ export function App() {
   const isDarkMode = preferences.isDarkMode;
 
   // Active view tab
-  const [activeTab, setActiveTab] = useState<'dashboard' | 'charts' | 'table' | 'analytics'>('dashboard');
+  const [activeTab, setActiveTab] = useState<'dashboard' | 'charts' | 'table' | 'analytics' | 'sources'>('dashboard');
 
   // Currently inspected indicator (for drill-down from dashboard)
   const [selectedIndicator, setSelectedIndicator] = useState<string>('US10Y');
@@ -192,6 +193,21 @@ export function App() {
         {activeTab === 'analytics' && (
           <AnalyticsLab
             data={data}
+            isDarkMode={isDarkMode}
+            onNavigateToTab={setActiveTab}
+          />
+        )}
+
+        {activeTab === 'sources' && (
+          <EconomicDataSources
+            onImportPoints={(points, mode) => {
+              handleImportConfirm(points, mode);
+              setNotification({
+                type: 'success',
+                message: `Successfully ingested ${points.length} verified real observations from World Bank Open Data into the terminal dataset.`,
+              });
+            }}
+            onNavigateToTab={setActiveTab}
             isDarkMode={isDarkMode}
           />
         )}
