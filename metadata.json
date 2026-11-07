@@ -1,0 +1,6 @@
+{
+  "name": "MacroResearch Terminal - Financial & Macroeconomic Analytics",
+  "description": "Responsive financial and macroeconomic analytics terminal with interactive ECharts, spreadsheet data management, CSV import/export, and multi-asset analysis.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
